@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Signup</h2>
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username">
+        <div class="error" id="usernameError"></div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+        <div class="error" id="emailError"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password">
+        <div class="error" id="passwordError"></div>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+        <div class="error" id="confirmPasswordError"></div>
+      </div>
+      <button type="submit">Signup</button>
+    </form>
+  </div>
+
+  <script>
+    // JavaScript for error handling
+    const form = document.getElementById('signupForm');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Clear previous errors
+      document.getElementById('usernameError').textContent = '';
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('confirmPasswordError').textContent = '';
+
+      // Get form values
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+      let hasError = false;
+
+      // Validate username
+      if (!username) {
+        document.getElementById('usernameError').textContent = 'Username is required.';
+        hasError = true;
+      }
+
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        document.getElementById('emailError').textContent = 'Email is required.';
+        hasError = true;
+      } else if (!emailRegex.test(email)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+        hasError = true;
+      }
+
+      // Validate password
+      if (!password) {
+        document.getElementById('passwordError').textContent = 'Password is required.';
+        hasError = true;
+      } else if (password.length < 6) {
+        document.getElementById('passwordError').textContent = 'Password must be at least 6 characters.';
+        hasError = true;
+      }
+
+      // Validate confirm password
+      if (!confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Please confirm your password.';
+        hasError = true;
+      } else if (password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+        hasError = true;
+      }
+
+      // If no errors, submit the form (for now, just log success)
+      if (!hasError) {
+        alert('Signup successful!');
+        // You can add form submission logic here (e.g., send data to a server)
+      }
+    });
+  </script>
+</body>
+</html>
